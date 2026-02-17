@@ -7,6 +7,11 @@ import ConfiguracionCanal from './ConfiguracionCanal';
 const ModalManager = () => {
   const { modalAbierto, toggleModal, activeStep, formData, prevStep } = useForm();
 
+  const resumenContenido = formData.canales.reduce((acc, canalId) => {
+    acc[canalId] = formData.contenido[canalId];
+    return acc;
+  }, {});
+
   return (
     <Modal 
       opened={modalAbierto} 
@@ -45,7 +50,7 @@ const ModalManager = () => {
             
             <Text>Se enviarán las siguientes notificaciones:</Text>
             <Code block>
-              {JSON.stringify(formData.contenido, null, 2)}
+              {JSON.stringify(resumenContenido, null, 2)}
             </Code>
             
             <Group justify="flex-end" mt="xl">

@@ -8,18 +8,24 @@ const StepOne = () => {
 
   const handleCanalChange = (id, checked) => {
     let nuevosCanales = [...formData.canales];
+    let nuevoContenido = { ...formData.contenido };
 
     if (checked) {
       nuevosCanales.push(id);
     } else {
       nuevosCanales = nuevosCanales.filter((c) => c !== id);
+      if (id === 'email') {
+        nuevoContenido.email = { asunto: '', mensaje: '' };
+      } else {
+        nuevoContenido[id] = { mensaje: '' };
+      }
     }
 
 
     const ordenMaestroIds = CANALES_ORDEN.map((c) => c.id);
     const canalesOrdenados = intersection(ordenMaestroIds, nuevosCanales);
 
-    actualizarData({ canales: canalesOrdenados });
+    actualizarData({ canales: canalesOrdenados, contenido: nuevoContenido });
   };
 
   return (
@@ -30,7 +36,14 @@ const StepOne = () => {
         <Text fw={700} mb="sm" c="dimmed">1. Selecciona el Tipo de Mensaje</Text>
         <Radio.Group
           value={formData.plantilla}
-          onChange={(value) => actualizarData({ plantilla: value })}
+          onChange={(value) => {
+            const contenidoReseteado = {
+              sms: { mensaje: '' },
+              email: { asunto: '', mensaje: '' },
+              whatsapp: { mensaje: '' }
+            };
+            actualizarData({ plantilla: value, contenido: contenidoReseteado });
+          }}
         >
           <Group mt="xs">
             {Object.entries(PLANTILLAS_DATA).map(([key, data]) => (
