@@ -1,10 +1,13 @@
+import Home from './views/Home';
+import ModalManager from './views/ModalManager';
+
 function App() {
   return (
-    <div>
-      <h1>Hola Mundo</h1>
-      <p>Proyecto: Sistema de Flujo de Notificaciones</p>
-    </div>
-  )
+    <>
+      <Home />
+      <ModalManager />
+    </>
+  );
 }
 
-export default App
+export default App;
