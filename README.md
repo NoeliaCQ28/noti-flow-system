@@ -1,16 +1,38 @@
-# React + Vite
+# 📨 Sistema de Gestión de Envíos (Notification Flow)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación interactiva construida con **React** y **Vite** que simula un flujo de configuración y envío de notificaciones multicanal. El sistema utiliza un **Stepper Dinámico** que se adapta según las selecciones del usuario, manteniendo la persistencia de datos entre pasos.
 
-Currently, two official plugins are available:
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![Tech](https://img.shields.io/badge/React-Vite-blue)
+![UI](https://img.shields.io/badge/Mantine-UI-cyan)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Características Principales
 
-## React Compiler
+* **Flujo Dinámico (Stepper):** La navegación se genera en tiempo real. Si seleccionas SMS y Email, el sistema crea pasos específicos para editar esos canales.
+* **Gestión de Estado Global:** Uso de **Context API** para persistir la información (plantillas, canales, textos) mientras el usuario navega hacia adelante o atrás.
+* **Lógica de Ordenamiento Estricto:** Implementación de algoritmos con `es-toolkit` para asegurar que, sin importar el orden de clic del usuario, los canales siempre se procesen en el orden de negocio (SMS → Email → WhatsApp).
+* **Plantillas Inteligentes:** Al seleccionar una plantilla (Invitación, Recordatorio), los campos de texto se autocompletan con variables dinámicas, pero permanecen editables.
+* **Interfaz Moderna:** Diseño limpio y responsivo utilizando componentes de **Mantine v7**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Stack Tecnológico
 
-## Expanding the ESLint configuration
+* **Core:** React 18, Vite.
+* **UI/UX:** @mantine/core, @mantine/hooks.
+* **Utilidades:** `es-toolkit` (para lógica de intersección y ordenamiento de arrays).
+* **Estilos:** PostCSS, CSS Modules (vía Mantine).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📂 Estructura del Proyecto
+
+El proyecto sigue una arquitectura modular para facilitar la escalabilidad:
+
+```bash
+src/
+├── components/       # Componentes reutilizables
+├── constants/        # Configuraciones estáticas (Plantillas, Orden de Canales)
+├── context/          # FormContext (Manejo de estado y lógica del Stepper)
+├── views/            # Vistas y Pasos del Flujo
+│   ├── Home.jsx             # Pantalla de bienvenida
+│   ├── ModalManager.jsx     # Orquestador del Modal y Stepper
+│   ├── StepOne.jsx          # Paso 1: Selección de Configuración
+│   └── ConfiguracionCanal.jsx # Paso Dinámico: Formulario por canal
+└── main.jsx          # Punto de entrada y Providers
