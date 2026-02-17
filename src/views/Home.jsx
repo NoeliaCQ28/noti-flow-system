@@ -24,6 +24,7 @@ const Home = () => {
           gradient={{ from: 'orange', to: 'yellow', deg: 163 }}
           size="lg" 
           radius="md" 
+          onClick={toggleModal}
         >
           Enviar Mensajes
         </Button>
