@@ -19,8 +19,22 @@ export const FormProvider = ({ children }) => {
   });
 
   const toggleModal = () => {
-    setModalAbierto(!modalAbierto);
-    setActiveStep(0); 
+    setModalAbierto((prev) => {
+      const next = !prev;
+      if (!next) {
+        setActiveStep(0);
+        setFormData({
+          plantilla: '',
+          canales: [],
+          contenido: {
+            sms: { mensaje: '' },
+            email: { asunto: '', mensaje: '' },
+            whatsapp: { mensaje: '' }
+          }
+        });
+      }
+      return next;
+    });
   };
 
 
