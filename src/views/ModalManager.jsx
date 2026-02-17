@@ -1,11 +1,20 @@
 // src/views/ModalManager.jsx
 import { Modal, Stepper, Button, Group, Text, Stack, Code } from '@mantine/core';
+import confetti from 'canvas-confetti';
 import { useForm } from '../context/FormContext';
 import StepOne from './StepOne';
 import ConfiguracionCanal from './ConfiguracionCanal';
 
 const ModalManager = () => {
   const { modalAbierto, toggleModal, activeStep, formData, prevStep } = useForm();
+
+  const lanzarConfeti = () => {
+    confetti({
+      particleCount: 140,
+      spread: 70,
+      origin: { y: 0.7 }
+    });
+  };
 
   const resumenContenido = formData.canales.reduce((acc, canalId) => {
     acc[canalId] = formData.contenido[canalId];
@@ -58,8 +67,11 @@ const ModalManager = () => {
               <Button 
                 color="green" 
                 onClick={() => {
-                   alert('¡Mensajes Enviados con éxito!');
-                   toggleModal(); 
+                   lanzarConfeti();
+                   setTimeout(() => {
+                     alert('¡Mensajes Enviados con éxito!');
+                     toggleModal(); 
+                   }, 100);
                 }}
               >
                 Confirmar Envío
